@@ -1,3 +1,4 @@
+
 # Async Task Manager (Using FastAPI and Heroku)
 
 This is an asynchronous task manager built with FastAPI and deployed on Heroku. It allows users to create and track long-running tasks that are processed asynchronously in the background using `BackgroundTasks` and `asyncio`.
@@ -119,9 +120,9 @@ Ensure that you have the following installed on your local development machine:
 ### Live Application
 
 The live application is available at:
-![Screenshot 2024-09-13 at 2 54 40 PM](https://github.com/user-attachments/assets/36f4d9be-7171-42de-9b78-a3834d115c0c)
+![Screenshot 2024-09-13 at 3 14 30 PM](https://github.com/user-attachments/assets/ea67956a-88c4-4e60-87f6-9a45c3ae4f9b)
 
-[https://async-task-4e020a9578b4.herokuapp.com/](https://async-task-4e020a9578b4.herokuapp.com/)
+[https://async-task-4e020a9578b4.herokuapp.com/docs](https://async-task-4e020a9578b4.herokuapp.com/docs)
 
 ### Project Structure
 
@@ -138,6 +139,87 @@ async-task-manager/
 └── runtime.txt (optional)
 ```
 
+## How to Use
+
+### 1. Access the App
+
+Once the app is deployed, you can access it at the following URL:
+
+```
+https://async-task-4e020a9578b4.herokuapp.com/
+```
+
+### 2. Use FastAPI Swagger Documentation
+
+FastAPI provides an interactive API documentation (Swagger UI) that allows you to test and call the API.
+
+- To access the documentation, visit the following URL:
+  ```
+  https://async-task-4e020a9578b4.herokuapp.com/docs
+  ```
+
+- This will open an interactive interface where you can view and test all available API endpoints.
+
+### 3. Test API Endpoints
+
+The application provides multiple API endpoints for interacting with the system. Below are examples:
+
+#### POST `/run-task/`
+
+This endpoint creates and runs a long-running task in the background. You can submit data to trigger the task.
+
+- **URL**: `/run-task/`
+- **Method**: `POST`
+- **Parameters**: Submit `JSON` data in the request body
+  - Example data:
+    ```json
+    {
+      "task_data": "example_task_data"
+    }
+    ```
+- **Response**: Upon success, you will receive a message indicating the task is running in the background:
+  ```json
+  {
+    "message": "Task is running in the background"
+  }
+  ```
+
+#### GET `/status/{task_id}` (Optional)
+
+This endpoint is used to check the status of a running task if task status tracking is implemented.
+
+- **URL**: `/status/{task_id}`
+- **Method**: `GET`
+- **Parameters**: 
+  - `task_id`: The unique ID of the task created previously
+- **Response**: You will receive the current status of the task, for example:
+  ```json
+  {
+    "task_id": "12345",
+    "status": "in_progress"
+  }
+  ```
+
+### 4. Test API Requests
+
+You can use tools like `curl` or Postman to test the API.
+
+- **Using `curl` to test the API**:
+  ```bash
+  curl -X POST https://async-task-4e020a9578b4.herokuapp.com/run-task/ -H "Content-Type: application/json" -d '{"task_data": "example_task_data"}'
+  ```
+
+- **Using Postman to test the API**:
+  1. Open Postman and create a new request.
+  2. Set the request method to `POST` and enter the API URL `https://async-task-4e020a9578b4.herokuapp.com/run-task/`.
+  3. In the Body section, select `raw` and choose `JSON` format, then enter the data:
+     ```json
+     {
+       "task_data": "example_task_data"
+     }
+     ```
+  4. Send the request and check the response.
+
 ## Future Improvements
 
 - Task status tracking (e.g., `pending`, `in_progress`, `completed`).
@@ -147,4 +229,3 @@ async-task-manager/
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
